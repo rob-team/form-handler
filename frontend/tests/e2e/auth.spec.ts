@@ -82,10 +82,11 @@ test.describe("US1 — User Registration and Login", () => {
     await page.fill('[name="password"]', password)
     await page.click('button[type="submit"]')
     await expect(page).toHaveURL(/\/dashboard/, { timeout: 8000 })
+    await page.waitForLoadState("networkidle")
 
-    // Click logout
+    // Click logout (window.location.href causes full page navigation)
     await page.getByRole("button", { name: /log ?out|sign ?out/i }).click()
-    await expect(page).toHaveURL(/\/login/, { timeout: 5000 })
+    await expect(page).toHaveURL(/\/login/, { timeout: 10000 })
 
     // Navigating to /dashboard should redirect back to /login
     await page.goto("/dashboard")

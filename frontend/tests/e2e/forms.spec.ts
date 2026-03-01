@@ -35,6 +35,7 @@ test.describe("US2 — Form Creation and Management", () => {
     await page.fill('[name="password"]', userPassword)
     await page.click('button[type="submit"]')
     await expect(page).toHaveURL(/\/dashboard/, { timeout: 8000 })
+    await page.waitForLoadState("networkidle")
   }
 
   test("Create form: click New Form → fill name → form card appears with endpoint URL", async ({
