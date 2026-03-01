@@ -1,6 +1,13 @@
-# FormSaaS
+# FormHandler
 
-A self-hosted form submission platform (similar to Formspree/Getform). Collect form submissions from any website via a simple API endpoint, view them in a dashboard, and get notified via Telegram.
+<p align="center">
+  <img src="docs/logo-preview.svg" alt="FormHandler Logo" width="280" />
+</p>
+
+<p align="center">
+  A self-hosted form submission platform (similar to Formspree/Getform).<br/>
+  Collect form submissions from any website via a simple API endpoint, view them in a dashboard, and get notified via Telegram.
+</p>
 
 ## Features
 
@@ -86,9 +93,12 @@ backend/
 frontend/
   src/app/(auth)/             # Register, login, password reset
   src/app/(dashboard)/        # Form list, submission viewer, settings
-  src/components/             # Form card, submission item, dialogs
+  src/components/             # Form card, submission item, logo, dialogs
   tests/contract/             # API contract tests (23 tests)
   tests/e2e/                  # Browser E2E tests (12 tests)
+
+docs/
+  logo-preview.svg            # Logo for README
 ```
 
 ## Testing

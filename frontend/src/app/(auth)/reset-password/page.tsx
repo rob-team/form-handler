@@ -15,6 +15,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Alert, AlertDescription } from "@/components/ui/alert"
+import Logo from "@/components/logo"
 
 type State = "idle" | "loading" | "success" | "error"
 
@@ -42,7 +43,10 @@ export default function ResetPasswordPage() {
 
   if (state === "success") {
     return (
-      <div className="min-h-screen flex items-center justify-center px-4">
+      <div className="min-h-screen flex flex-col items-center justify-center px-4">
+        <div className="mb-8">
+          <Logo size="lg" href={undefined} />
+        </div>
         <Card className="w-full max-w-sm text-center">
           <CardHeader>
             <CardTitle>Check your email</CardTitle>
@@ -60,7 +64,10 @@ export default function ResetPasswordPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4">
+    <div className="min-h-screen flex flex-col items-center justify-center px-4">
+      <div className="mb-8">
+        <Logo size="lg" href={undefined} />
+      </div>
       <Card className="w-full max-w-sm">
         <CardHeader>
           <CardTitle>Reset password</CardTitle>

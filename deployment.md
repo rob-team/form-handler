@@ -1,4 +1,4 @@
-# FormSaaS Deployment Guide
+# FormHandler Deployment Guide
 
 ## Architecture
 
@@ -166,13 +166,13 @@ cd frontend
 npm run build
 
 # Run with PM2
-pm2 start npm --name "formsaas" -- start
+pm2 start npm --name "formhandler" -- start
 ```
 
 ### 5.3 Nginx Reverse Proxy
 
 ```nginx
-# /etc/nginx/sites-available/formsaas
+# /etc/nginx/sites-available/formhandler
 
 # Frontend
 server {
@@ -312,7 +312,87 @@ curl -s -H "Authorization: <token>" \
 
 ---
 
-## 8. Running Tests
+## 8. Upgrading
+
+### 8.1 Pull latest code
+
+```bash
+cd /opt/form
+git pull origin main
+```
+
+### 8.2 Update PocketBase (if new version)
+
+```bash
+# Check current version
+./backend/pocketbase version
+
+# Download new version (edit version in script if needed)
+bash scripts/download-pocketbase.sh
+```
+
+PocketBase runs migrations automatically on startup. New migrations in `backend/pb_migrations/` will be applied when the service restarts.
+
+### 8.3 Update frontend
+
+```bash
+cd /opt/form/frontend
+npm install
+npm run build
+```
+
+### 8.4 Restart services
+
+```bash
+# Restart PocketBase
+sudo systemctl restart pocketbase
+
+# Restart Next.js
+pm2 restart formhandler
+```
+
+### 8.5 Verify after upgrade
+
+```bash
+# Check PocketBase is healthy
+curl http://127.0.0.1:8090/api/health
+
+# Check frontend is responding
+curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:3000
+# Expected: 200
+```
+
+### 8.6 Rollback (if needed)
+
+```bash
+# Revert code
+cd /opt/form
+git checkout <previous-commit>
+
+# Rebuild frontend
+cd frontend && npm install && npm run build
+
+# Restart services
+sudo systemctl restart pocketbase
+pm2 restart formhandler
+```
+
+> **Note**: PocketBase migrations are forward-only. If a migration introduced schema changes, you may need to manually revert the database or restore from a backup. Always back up `backend/pb_data/` before upgrading.
+
+### 8.7 Backup before upgrade (recommended)
+
+```bash
+# Back up the database
+cp -r /opt/form/backend/pb_data /opt/form/backend/pb_data.bak.$(date +%Y%m%d)
+
+# Or use PocketBase's built-in backup
+cd /opt/form/backend
+./pocketbase admin backup
+```
+
+---
+
+## 9. Running Tests
 
 ```bash
 # Start backend first
