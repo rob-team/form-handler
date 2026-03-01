@@ -1,0 +1,22 @@
+# PocketBase
+backend/pocketbase
+backend/pb_data/
+backend/.env
+
+# Frontend
+frontend/.env.local
+frontend/.env*.local
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/dist/
+
+# Test output
+frontend/playwright-report/
+frontend/test-results/
+
+# OS
+.DS_Store
+Thumbs.db
+*.swp
+*.tmp
