@@ -26,6 +26,18 @@ migrate(
           type: "text",
           required: false,
         },
+        {
+          name: "created",
+          type: "autodate",
+          onCreate: true,
+          onUpdate: false,
+        },
+        {
+          name: "updated",
+          type: "autodate",
+          onCreate: true,
+          onUpdate: true,
+        },
       ],
       listRule: "@request.auth.id = user",
       viewRule: "@request.auth.id = user",

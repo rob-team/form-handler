@@ -50,10 +50,11 @@ export default function FormDetailPage() {
     try {
       const pb = getPocketBase()
       const [f, subs] = await Promise.all([
-        pb.collection("forms").getOne<FormRecord>(formId),
+        pb.collection("forms").getOne<FormRecord>(formId, { requestKey: null }),
         pb.collection("submissions").getList<Submission>(currentPage, PAGE_SIZE, {
           filter: `form="${formId}"`,
           sort: "-created",
+          requestKey: null,
         }),
       ])
       setForm(f)

@@ -46,8 +46,8 @@ test.describe("US2 — Form Creation and Management", () => {
     await page.getByRole("button", { name: /^create$/i }).click()
 
     await expect(page.getByText("My Contact Form")).toBeVisible({ timeout: 8000 })
-    // Endpoint URL should contain /api/submit/
-    await expect(page.getByText(/\/api\/submit\//)).toBeVisible()
+    // Endpoint URL should contain /api/submit/ (shown in a read-only input)
+    await expect(page.locator('[aria-label="Submission endpoint URL"]')).toHaveValue(/\/api\/submit\//)
   })
 
   test("Rename form: open menu → rename → new name shown, endpoint URL unchanged", async ({
@@ -67,7 +67,7 @@ test.describe("US2 — Form Creation and Management", () => {
     await page.getByRole("button", { name: /save|rename|update/i }).click()
 
     await expect(page.getByText("Renamed Form")).toBeVisible({ timeout: 8000 })
-    await expect(page.getByText(/\/api\/submit\//)).toBeVisible()
+    await expect(page.locator('[aria-label="Submission endpoint URL"]')).toHaveValue(/\/api\/submit\//)
   })
 
   test("Delete form: open menu → delete → confirm → card removed", async ({
@@ -83,7 +83,8 @@ test.describe("US2 — Form Creation and Management", () => {
     await page.getByRole("menuitem", { name: /delete/i }).click()
     await page.getByRole("button", { name: /confirm|yes|delete/i }).click()
 
-    await expect(page.getByText("To Delete")).not.toBeVisible({ timeout: 8000 })
+    // After deletion, the form card link should no longer be visible
+    await expect(page.locator('a', { hasText: 'To Delete' })).not.toBeVisible({ timeout: 8000 })
   })
 
   test("Empty state: new user sees 'No forms' message", async ({ page, request }) => {
@@ -93,6 +94,6 @@ test.describe("US2 — Form Creation and Management", () => {
     await page.fill('[name="password"]', user.password)
     await page.click('button[type="submit"]')
     await expect(page).toHaveURL(/\/dashboard/, { timeout: 8000 })
-    await expect(page.getByText(/no forms|haven't created/i)).toBeVisible()
+    await expect(page.getByText("No forms yet")).toBeVisible()
   })
 })

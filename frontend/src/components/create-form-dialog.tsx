@@ -36,10 +36,10 @@ export default function CreateFormDialog({ onCreated }: Props) {
 
     try {
       const pb = getPocketBase()
-      await pb.collection("forms").create({
-        name,
-        user: pb.authStore.record?.id,
-      })
+      await pb.collection("forms").create(
+        { name, user: pb.authStore.record?.id },
+        { requestKey: null },
+      )
       setOpen(false)
       onCreated()
     } catch {
@@ -49,7 +49,10 @@ export default function CreateFormDialog({ onCreated }: Props) {
   }
 
   function handleOpenChange(next: boolean) {
-    if (!next) setError("")
+    if (!next) {
+      setError("")
+      setLoading(false)
+    }
     setOpen(next)
   }
 

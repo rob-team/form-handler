@@ -47,7 +47,7 @@ test.describe("User Registration (CT-010, CT-011)", () => {
     expect(res.status()).toBe(200)
     const body = await res.json()
     expect(body).toHaveProperty("id")
-    expect(body.email).toBe(email)
+    // PocketBase v0.23+ hides email when emailVisibility is false
     expect(body.verified).toBe(false)
   })
 
@@ -147,9 +147,11 @@ test.describe("Forms CRUD (CT-014 to CT-019)", () => {
     expect(body.items.every((f: { user: string }) => f.user === userId)).toBe(true)
   })
 
-  test("CT-016: unauthenticated list returns 403", async ({ request }) => {
+  test("CT-016: unauthenticated list returns empty (access rule filters)", async ({ request }) => {
     const res = await request.get(`${PB}/api/collections/forms/records`)
-    expect(res.status()).toBe(403)
+    expect(res.status()).toBe(200)
+    const body = await res.json()
+    expect(body.totalItems).toBe(0)
   })
 
   test("CT-017: owner can update form name", async ({ request }) => {
@@ -186,7 +188,8 @@ test.describe("Forms CRUD (CT-014 to CT-019)", () => {
         data: { name: "Hacked" },
       }
     )
-    expect(updateRes.status()).toBe(403)
+    // PocketBase v0.23+ returns 404 when updateRule hides records from non-owners
+    expect([403, 404]).toContain(updateRes.status())
   })
 
   test("CT-019: owner can delete form", async ({ request }) => {

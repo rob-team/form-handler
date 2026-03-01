@@ -3,6 +3,8 @@
 migrate(
   // Forward migration — create the submissions collection.
   function (app) {
+    var formsCollection = app.findCollectionByNameOrId("forms")
+
     var collection = new Collection({
       name: "submissions",
       type: "base",
@@ -10,14 +12,26 @@ migrate(
         {
           name: "form",
           type: "relation",
-          collectionId: "forms",
+          collectionId: formsCollection.id,
           required: true,
           cascadeDelete: true,
         },
         {
           name: "data",
           type: "json",
-          required: true,
+          required: false,
+        },
+        {
+          name: "created",
+          type: "autodate",
+          onCreate: true,
+          onUpdate: false,
+        },
+        {
+          name: "updated",
+          type: "autodate",
+          onCreate: true,
+          onUpdate: true,
         },
       ],
       // Only the form owner may list or view submissions.

@@ -88,7 +88,7 @@ export default function LoginPage() {
               Forgot password?
             </Link>
           </CardContent>
-          <CardFooter>
+          <CardFooter className="pt-4">
             <Button type="submit" className="w-full" disabled={loading}>
               {loading ? "Logging in…" : "Log in"}
             </Button>

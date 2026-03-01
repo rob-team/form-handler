@@ -23,7 +23,7 @@ test.describe("US1 — User Registration and Login", () => {
 
     // After submit, the registration page should show a success/verification message
     await expect(
-      page.getByText(/check your email|verification|sent/i)
+      page.getByText("Check your email")
     ).toBeVisible({ timeout: 8000 })
   })
 

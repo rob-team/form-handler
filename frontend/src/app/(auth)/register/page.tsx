@@ -127,7 +127,7 @@ export default function RegisterPage() {
               />
             </div>
           </CardContent>
-          <CardFooter>
+          <CardFooter className="pt-4">
             <Button type="submit" className="w-full" disabled={state === "loading"}>
               {state === "loading" ? "Creating account…" : "Create account"}
             </Button>

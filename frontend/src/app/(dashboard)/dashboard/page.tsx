@@ -26,6 +26,7 @@ export default function DashboardPage() {
       const pb = getPocketBase()
       const result = await pb.collection("forms").getFullList<FormRecord>({
         sort: "-created",
+        requestKey: null, // disable auto-cancellation
       })
       setForms(result)
 
@@ -35,6 +36,7 @@ export default function DashboardPage() {
         result.map(async (f) => {
           const c = await pb.collection("submissions").getList(1, 1, {
             filter: `form="${f.id}"`,
+            requestKey: null,
           })
           countMap[f.id] = c.totalItems
         })

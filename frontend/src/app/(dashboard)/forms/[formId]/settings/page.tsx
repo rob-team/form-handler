@@ -31,7 +31,7 @@ export default function FormSettingsPage() {
   useEffect(() => {
     getPocketBase()
       .collection("forms")
-      .getOne(formId)
+      .getOne(formId, { requestKey: null })
       .then((f) => {
         setFormName(f.name as string)
         setChatId((f.telegram_chat_id as string) ?? "")
@@ -131,7 +131,7 @@ export default function FormSettingsPage() {
               />
             </div>
           </CardContent>
-          <CardFooter className="flex gap-2">
+          <CardFooter className="flex gap-2 pt-4">
             <Button type="submit" disabled={saveState === "loading"}>
               {saveState === "loading" ? "Saving…" : "Save"}
             </Button>

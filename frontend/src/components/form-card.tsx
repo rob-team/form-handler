@@ -115,7 +115,11 @@ export default function FormCard({
               </CardDescription>
             </div>
             <div className="flex items-center gap-2 shrink-0">
-              <Badge variant="secondary">{submissionCount} submissions</Badge>
+              <Link href={`/forms/${form.id}`}>
+                <Badge variant="secondary" className="cursor-pointer hover:bg-secondary/80">
+                  {submissionCount} submissions
+                </Badge>
+              </Link>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" size="sm" aria-label="More options">
@@ -123,6 +127,9 @@ export default function FormCard({
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
+                  <DropdownMenuItem asChild>
+                    <Link href={`/forms/${form.id}/settings`}>Settings</Link>
+                  </DropdownMenuItem>
                   <DropdownMenuItem onSelect={() => setRenameOpen(true)}>
                     Rename
                   </DropdownMenuItem>
@@ -175,7 +182,7 @@ export default function FormCard({
                 autoFocus
               />
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-2 pt-2">
               <Button
                 type="button"
                 variant="outline"

@@ -1,3 +1,4 @@
+import { Fragment } from "react"
 import {
   Card,
   CardContent,
@@ -56,12 +57,12 @@ export default function SubmissionItem({ submission, index }: Props) {
         ) : (
           <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 text-sm">
             {entries.map(([key, value]) => (
-              <>
-                <dt key={`dt-${key}`} className="font-medium text-muted-foreground truncate">
+              <Fragment key={key}>
+                <dt className="font-medium text-muted-foreground truncate">
                   {key}
                 </dt>
-                <dd key={`dd-${key}`} className="break-words">{renderValue(value)}</dd>
-              </>
+                <dd className="break-words">{renderValue(value)}</dd>
+              </Fragment>
             ))}
           </dl>
         )}

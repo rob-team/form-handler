@@ -1,21 +1,6 @@
 /// <reference path="../pb_data/types.d.ts" />
 
 // ---------------------------------------------------------------------------
-// Helpers
-// ---------------------------------------------------------------------------
-
-/**
- * Returns true if `url` is an absolute HTTP or HTTPS URL.
- * Used to validate the _next redirect target before issuing a 302.
- *
- * @param {unknown} url
- * @returns {boolean}
- */
-function isValidRedirectUrl(url) {
-  return typeof url === "string" && /^https?:\/\/.+/.test(url)
-}
-
-// ---------------------------------------------------------------------------
 // Submission endpoint  POST /api/submit/{formId}
 // ---------------------------------------------------------------------------
 //
@@ -56,7 +41,9 @@ routerAdd(
     var frontendUrl =
       $os.getenv("FRONTEND_URL") || "http://localhost:3000"
 
-    if (isValidRedirectUrl(nextUrl)) {
+    // Validate _next is an absolute HTTP(S) URL before redirecting.
+    var isValidNext = typeof nextUrl === "string" && /^https?:\/\/.+/.test(nextUrl)
+    if (isValidNext) {
       return e.redirect(302, nextUrl)
     }
 
@@ -97,7 +84,8 @@ onRecordAfterCreateSuccess(function (e) {
     }
 
     // Build a human-readable summary of the submitted fields.
-    var data = e.record.get("data") || {}
+    var rawData = e.record.get("data")
+    var data = rawData ? JSON.parse(String(rawData)) : {}
     var lines = ["\uD83D\uDCCB New form submission"]
     var keys = Object.keys(data)
     for (var i = 0; i < keys.length; i++) {
@@ -111,14 +99,14 @@ onRecordAfterCreateSuccess(function (e) {
       method: "POST",
       body: JSON.stringify({ chat_id: chatId, text: text }),
       headers: { "content-type": "application/json" },
-      timeout: 8,
+      timeout: 15,
     })
 
     if (res.statusCode !== 200) {
-      console.error("[telegram] sendMessage failed:", res.statusCode, String(res.body))
+      console.error("[telegram] sendMessage failed:", res.statusCode, res.raw)
     }
   } catch (err) {
-    console.error("[telegram] hook error:", err)
+    console.error("[telegram] hook error:", String(err))
   }
 
   e.next()

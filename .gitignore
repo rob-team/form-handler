@@ -20,3 +20,4 @@ frontend/test-results/
 Thumbs.db
 *.swp
 *.tmp
+backend/test-results/
