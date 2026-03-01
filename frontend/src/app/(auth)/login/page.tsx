@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { getPocketBase } from "@/lib/pocketbase-browser"
 import { Button } from "@/components/ui/button"
@@ -19,7 +18,6 @@ import { Alert, AlertDescription } from "@/components/ui/alert"
 import Logo from "@/components/logo"
 
 export default function LoginPage() {
-  const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
 
@@ -35,8 +33,9 @@ export default function LoginPage() {
     try {
       const pb = getPocketBase()
       await pb.collection("users").authWithPassword(email, password)
-      // authStore.onChange fires and syncs token to document.cookie automatically.
-      router.push("/dashboard")
+      // Full page navigation so the server sees the fresh auth cookie.
+      // router.push would use cached RSC response and fail after logout→login.
+      window.location.href = "/dashboard"
     } catch {
       setError("Invalid email or password. Please try again.")
       setLoading(false)
