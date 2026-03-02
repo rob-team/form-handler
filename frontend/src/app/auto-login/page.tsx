@@ -1,16 +1,10 @@
 "use client"
 
-import { useEffect } from "react"
+import { Suspense, useEffect } from "react"
 import { useSearchParams } from "next/navigation"
 import { getPocketBase } from "@/lib/pocketbase-browser"
 
-/**
- * Auto-login page for demo/development use.
- *
- * Accepts `email` and `password` query params, authenticates with PocketBase,
- * then redirects to the `redirect` param (default: /dashboard).
- */
-export default function AutoLoginPage() {
+function AutoLoginContent() {
   const params = useSearchParams()
 
   useEffect(() => {
@@ -35,5 +29,23 @@ export default function AutoLoginPage() {
     <div className="min-h-screen flex items-center justify-center">
       <p className="text-muted-foreground">Logging in…</p>
     </div>
+  )
+}
+
+/**
+ * Auto-login page for demo/development use.
+ *
+ * Accepts `email` and `password` query params, authenticates with PocketBase,
+ * then redirects to the `redirect` param (default: /dashboard).
+ */
+export default function AutoLoginPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-muted-foreground">Loading…</p>
+      </div>
+    }>
+      <AutoLoginContent />
+    </Suspense>
   )
 }
