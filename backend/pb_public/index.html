@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FormHandler Widget Demo</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: linear-gradient(135deg, #1e40af, #3b82f6);
+      color: #fff;
+      padding: 48px 24px 40px;
+      text-align: center;
+    }
+    header h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+    header p  { font-size: 15px; opacity: .85; max-width: 520px; margin: 0 auto; }
+
+    /* ── Status bar ── */
+    #status-bar {
+      max-width: 720px;
+      margin: -20px auto 0;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.08);
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      position: relative;
+      z-index: 1;
+    }
+    .status-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: #94a3b8;
+      flex-shrink: 0;
+    }
+    .status-dot.ok      { background: #22c55e; }
+    .status-dot.error   { background: #ef4444; }
+    .status-dot.loading { background: #f59e0b; animation: pulse 1s infinite; }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .4; } }
+    #status-text { font-size: 14px; flex: 1; }
+    #status-text code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 13px; }
+
+    /* ── Main content ── */
+    main {
+      max-width: 720px;
+      margin: 32px auto;
+      padding: 0 24px 80px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 1px 4px rgba(0,0,0,.06);
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    .card h2 { font-size: 18px; font-weight: 600; margin-bottom: 12px; }
+    .card p  { font-size: 14px; color: #64748b; line-height: 1.6; }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .feature {
+      background: #f8fafc;
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .feature strong { display: block; font-size: 14px; margin-bottom: 4px; }
+    .feature span   { font-size: 13px; color: #64748b; }
+
+    pre {
+      background: #1e293b;
+      color: #e2e8f0;
+      border-radius: 8px;
+      padding: 16px;
+      overflow-x: auto;
+      font-size: 13px;
+      line-height: 1.6;
+      margin-top: 12px;
+    }
+    pre .comment { color: #64748b; }
+    pre .str     { color: #7dd3fc; }
+    pre .tag     { color: #f472b6; }
+
+    .hint {
+      font-size: 13px;
+      color: #64748b;
+      margin-top: 16px;
+      padding: 12px 16px;
+      background: #fffbeb;
+      border-left: 3px solid #f59e0b;
+      border-radius: 0 8px 8px 0;
+    }
+
+    /* ── Dashboard card ── */
+    #dashboard-card { display: none; }
+    #dashboard-card.visible { display: block; }
+    .cred-row {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 14px; padding: 6px 0;
+    }
+    .cred-row label { color: #64748b; width: 72px; flex-shrink: 0; }
+    .cred-row code  {
+      background: #f1f5f9; padding: 4px 10px; border-radius: 6px;
+      font-size: 13px; user-select: all; flex: 1;
+    }
+    .btn-group { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 10px 20px; border-radius: 8px; border: none;
+      font-size: 14px; font-weight: 600; cursor: pointer;
+      text-decoration: none; transition: background .15s;
+    }
+    .btn-primary { background: #2563eb; color: #fff; }
+    .btn-primary:hover { background: #1d4ed8; }
+    .btn-outline {
+      background: #fff; color: #2563eb;
+      border: 1px solid #2563eb;
+    }
+    .btn-outline:hover { background: #eff6ff; }
+
+    footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 13px;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>FormHandler Widget Demo</h1>
+    <p>This page demonstrates the embeddable inquiry widget running against your local development environment.</p>
+  </header>
+
+  <div id="status-bar">
+    <div class="status-dot loading" id="dot"></div>
+    <span id="status-text">Connecting to local PocketBase&hellip;</span>
+  </div>
+
+  <main>
+    <div class="card">
+      <h2>How It Works</h2>
+      <p>The floating chat bubble in the bottom-right corner is the FormHandler widget. Click it to start an interactive inquiry conversation. Your responses are submitted to the local PocketBase backend and can be viewed in the dashboard.</p>
+      <div class="feature-grid">
+        <div class="feature">
+          <strong>Conversational UI</strong>
+          <span>Questions appear one at a time in a chat-like interface.</span>
+        </div>
+        <div class="feature">
+          <strong>Shadow DOM</strong>
+          <span>Widget styles are fully isolated from the host page.</span>
+        </div>
+        <div class="feature">
+          <strong>Mobile Ready</strong>
+          <span>Full-screen on mobile, floating window on desktop.</span>
+        </div>
+        <div class="feature">
+          <strong>Lightweight</strong>
+          <span>~9 KB gzipped. No external dependencies on the host page.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Embed Code</h2>
+      <p>To embed this widget on any page, add the following snippet before <code>&lt;/body&gt;</code>:</p>
+      <pre><span class="tag">&lt;script&gt;</span>
+  window.FormHandler = {
+    <span class="str">widgetId</span>: <span class="str">"<span id="code-widget-id">YOUR_WIDGET_ID</span>"</span>,
+    <span class="str">apiBase</span>:  <span class="str">"http://127.0.0.1:8090"</span>
+  };
+<span class="tag">&lt;/script&gt;</span>
+<span class="tag">&lt;script</span> src=<span class="str">"widget.js"</span><span class="tag">&gt;&lt;/script&gt;</span></pre>
+    </div>
+
+    <div class="card" id="dashboard-card">
+      <h2>View in Dashboard</h2>
+      <p>After submitting an inquiry through the widget, log into the dashboard with the demo account below to see it.</p>
+      <div style="margin-top: 14px;">
+        <div class="cred-row"><label>Email</label><code id="demo-email"></code></div>
+        <div class="cred-row"><label>Password</label><code id="demo-password"></code></div>
+      </div>
+      <div class="btn-group">
+        <a class="btn btn-primary" id="btn-dashboard" href="#" target="_blank">Open Dashboard</a>
+        <a class="btn btn-outline" id="btn-widget-detail" href="#" target="_blank">View Widget Inquiries</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Test Scenarios</h2>
+      <p>Try these interactions to test the widget end-to-end:</p>
+      <ol style="margin-top: 12px; padding-left: 20px; font-size: 14px; line-height: 2;">
+        <li>Click the blue bubble &rarr; greeting message appears</li>
+        <li>Answer each question (text input &amp; single-select)</li>
+        <li>Submit the inquiry &rarr; success confirmation</li>
+        <li>Check the dashboard at <a href="http://localhost:3000/dashboard" target="_blank" style="color:#2563eb;">localhost:3000/dashboard</a> &rarr; new inquiry appears</li>
+        <li>Close and reopen the widget &rarr; state resets</li>
+      </ol>
+    </div>
+
+    <div class="hint">
+      <strong>Prerequisites:</strong> PocketBase must be running at <code>127.0.0.1:8090</code> and the Next.js frontend at <code>localhost:3000</code>.
+      Start them with <code>./pocketbase serve</code> and <code>npm run dev</code> respectively.
+    </div>
+  </main>
+
+  <footer>FormHandler &mdash; Local Development Demo</footer>
+
+  <!-- ── Widget bootstrap ── -->
+  <script>
+    // Same-origin: demo is served from PocketBase pb_public
+    const PB = "";
+
+    async function bootstrap() {
+      const dot  = document.getElementById("dot");
+      const text = document.getElementById("status-text");
+
+      try {
+        // 1. Check PocketBase is reachable
+        const healthRes = await fetch("/api/health");
+        if (!healthRes.ok) throw new Error("PocketBase health check failed");
+
+        text.textContent = "PocketBase OK. Creating demo widget…";
+
+        // 2. Create a temporary user
+        const email    = "demo-" + Date.now() + "@test.com";
+        const password = "DemoPassword123!";
+        const createRes = await fetch("/api/collections/users/records", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password, passwordConfirm: password }),
+        });
+        if (!createRes.ok) throw new Error("User creation failed: " + (await createRes.text()));
+
+        // 3. Log in
+        const loginRes = await fetch("/api/collections/users/auth-with-password", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ identity: email, password }),
+        });
+        if (!loginRes.ok) throw new Error("Login failed: " + (await loginRes.text()));
+        const loginBody = await loginRes.json();
+        const token  = loginBody.token;
+        const userId = loginBody.record.id;
+
+        // 4. Create a widget with sample questions
+        const widgetRes = await fetch("/api/collections/widgets/records", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+          body: JSON.stringify({
+            name: "Demo Widget",
+            user: userId,
+            button_text: "Send Inquiry",
+            greeting: "Hello! We'd love to learn more about your needs. Please answer a few quick questions.",
+            active: true,
+            questions: [
+              { id: "q1", label: "Which country are you from?", type: "text",          required: true, options: null },
+              { id: "q2", label: "Company Name",                type: "text",          required: true, options: null },
+              { id: "q3", label: "Purchase Quantity",           type: "single-select", required: true, options: ["< 100 pcs", "100-500 pcs", "500-1000 pcs", "1000+ pcs"] },
+              { id: "q4", label: "Business Email",              type: "email",         required: true, options: null },
+            ],
+          }),
+        });
+
+        if (!widgetRes.ok) {
+          const err = await widgetRes.text();
+          throw new Error("Widget creation failed: " + err);
+        }
+
+        const widget   = await widgetRes.json();
+        const widgetId = widget.id;
+
+        // Update embed code preview
+        document.getElementById("code-widget-id").textContent = widgetId;
+
+        // 5. Inject the widget
+        window.FormHandler = { widgetId, apiBase: PB };
+
+        const script = document.createElement("script");
+        script.src = "widget.js";
+        document.body.appendChild(script);
+
+        // 6. Show dashboard card with credentials and auto-login links
+        const FRONTEND = "http://localhost:3000";
+        const loginParams = "email=" + encodeURIComponent(email) + "&password=" + encodeURIComponent(password);
+        document.getElementById("demo-email").textContent = email;
+        document.getElementById("demo-password").textContent = password;
+        document.getElementById("btn-dashboard").href = FRONTEND + "/auto-login?" + loginParams;
+        document.getElementById("btn-widget-detail").href = FRONTEND + "/auto-login?" + loginParams + "&redirect=" + encodeURIComponent("/widgets/" + widgetId);
+        document.getElementById("dashboard-card").classList.add("visible");
+
+        // 7. Show success
+        dot.className  = "status-dot ok";
+        text.innerHTML = 'Widget loaded — ID: <code>' + widgetId + '</code>. Click the blue bubble ↘';
+      } catch (err) {
+        dot.className  = "status-dot error";
+        text.textContent = "Failed: " + err.message;
+        console.error("[demo]", err);
+      }
+    }
+
+    bootstrap();
+  </script>
+</body>
+</html>
