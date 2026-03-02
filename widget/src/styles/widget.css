@@ -313,6 +313,11 @@
     right: 16px;
   }
 
+  /* Hide floating bubble when chat is open (header has its own close button) */
+  .fh-bubble.fh-bubble-open {
+    display: none;
+  }
+
   /* Prevent iOS Safari zoom on input focus (requires >= 16px) */
   .fh-input {
     font-size: 16px;
