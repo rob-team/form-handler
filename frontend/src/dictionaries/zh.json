@@ -7,7 +7,10 @@
     "services": "服务",
     "contact": "联系我们",
     "login": "登录",
-    "getStarted": "立即开始"
+    "getStarted": "立即开始",
+    "docs": "文档",
+    "formEndpointsDocs": "表单接收端点",
+    "inquiryWidgetDocs": "询盘聊天组件"
   },
   "hero": {
     "headline": "让B2B获客变得简单",
@@ -24,7 +27,8 @@
         "新提交时立即通过Telegram推送通知",
         "在简洁的管理面板中查看和管理所有提交"
       ],
-      "cta": "开始收集表单"
+      "cta": "开始收集表单",
+      "docsLabel": "查看文档"
     },
     "widget": {
       "title": "询盘聊天组件",
@@ -34,7 +38,8 @@
         "对话式交互，问题完全自定义",
         "内置访客分析和国家地区识别"
       ],
-      "cta": "开始获取询盘"
+      "cta": "开始获取询盘",
+      "docsLabel": "查看文档"
     }
   },
   "contact": {

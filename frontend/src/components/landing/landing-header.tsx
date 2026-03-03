@@ -1,13 +1,26 @@
+"use client"
+
+import { useState } from "react"
 import Link from "next/link"
+import { ChevronDown, Menu, X } from "lucide-react"
 import Logo from "@/components/logo"
 import LanguageSwitcher from "@/components/landing/language-switcher"
 import { Button } from "@/components/ui/button"
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from "@/components/ui/dropdown-menu"
 
 interface LandingHeaderProps {
   locale: string
   servicesLabel: string
   contactLabel: string
   loginLabel: string
+  docsLabel?: string
+  formEndpointsDocsLabel?: string
+  inquiryWidgetDocsLabel?: string
 }
 
 export default function LandingHeader({
@@ -15,25 +28,51 @@ export default function LandingHeader({
   servicesLabel,
   contactLabel,
   loginLabel,
+  docsLabel,
+  formEndpointsDocsLabel,
+  inquiryWidgetDocsLabel,
 }: LandingHeaderProps) {
+  const [mobileOpen, setMobileOpen] = useState(false)
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4">
         <Logo href={`/${locale}`} />
 
+        {/* Desktop nav */}
         <nav className="hidden items-center gap-6 text-sm md:flex">
           <a
-            href="#services"
+            href={`/${locale}#services`}
             className="text-muted-foreground transition-colors hover:text-foreground"
           >
             {servicesLabel}
           </a>
           <a
-            href="#contact"
+            href={`/${locale}#contact`}
             className="text-muted-foreground transition-colors hover:text-foreground"
           >
             {contactLabel}
           </a>
+          {docsLabel && formEndpointsDocsLabel && inquiryWidgetDocsLabel && (
+            <DropdownMenu>
+              <DropdownMenuTrigger className="flex items-center gap-1 text-muted-foreground transition-colors hover:text-foreground outline-none">
+                {docsLabel}
+                <ChevronDown className="h-3.5 w-3.5" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start">
+                <DropdownMenuItem asChild>
+                  <Link href={`/${locale}/docs/form-endpoints`}>
+                    {formEndpointsDocsLabel}
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href={`/${locale}/docs/inquiry-widget`}>
+                    {inquiryWidgetDocsLabel}
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
         </nav>
 
         <div className="flex items-center gap-3">
@@ -51,8 +90,60 @@ export default function LandingHeader({
           <Button asChild variant="outline" size="sm">
             <Link href="/login">{loginLabel}</Link>
           </Button>
+          {/* Mobile hamburger */}
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="ml-1 text-muted-foreground hover:text-foreground md:hidden"
+            aria-label="Toggle menu"
+          >
+            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
         </div>
       </div>
+
+      {/* Mobile nav panel */}
+      {mobileOpen && (
+        <nav className="border-t bg-background px-4 pb-4 pt-3 md:hidden">
+          <div className="flex flex-col gap-1">
+            <a
+              href={`/${locale}#services`}
+              onClick={() => setMobileOpen(false)}
+              className="rounded-md px-3 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-muted"
+            >
+              {servicesLabel}
+            </a>
+            <a
+              href={`/${locale}#contact`}
+              onClick={() => setMobileOpen(false)}
+              className="rounded-md px-3 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-muted"
+            >
+              {contactLabel}
+            </a>
+            {docsLabel && formEndpointsDocsLabel && inquiryWidgetDocsLabel && (
+              <>
+                <div className="my-1 border-t" />
+                <span className="px-3 pb-1 pt-2 text-sm font-semibold text-muted-foreground">
+                  {docsLabel}
+                </span>
+                <Link
+                  href={`/${locale}/docs/form-endpoints`}
+                  onClick={() => setMobileOpen(false)}
+                  className="rounded-md px-3 py-2.5 pl-6 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                >
+                  {formEndpointsDocsLabel}
+                </Link>
+                <Link
+                  href={`/${locale}/docs/inquiry-widget`}
+                  onClick={() => setMobileOpen(false)}
+                  className="rounded-md px-3 py-2.5 pl-6 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                >
+                  {inquiryWidgetDocsLabel}
+                </Link>
+              </>
+            )}
+          </div>
+        </nav>
+      )}
     </header>
   )
 }

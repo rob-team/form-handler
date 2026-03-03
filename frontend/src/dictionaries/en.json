@@ -7,7 +7,10 @@
     "services": "Services",
     "contact": "Contact",
     "login": "Log In",
-    "getStarted": "Get Started"
+    "getStarted": "Get Started",
+    "docs": "Docs",
+    "formEndpointsDocs": "Form Endpoints",
+    "inquiryWidgetDocs": "Inquiry Widget"
   },
   "hero": {
     "headline": "Simplify B2B Lead Generation",
@@ -24,7 +27,8 @@
         "Receive instant Telegram notifications on new submissions",
         "View and manage all submissions in a clean dashboard"
       ],
-      "cta": "Start Collecting Submissions"
+      "cta": "Start Collecting Submissions",
+      "docsLabel": "View Docs"
     },
     "widget": {
       "title": "Inquiry Widget",
@@ -34,7 +38,8 @@
         "Conversational flow with customizable questions",
         "Built-in visitor analytics and country detection"
       ],
-      "cta": "Start Capturing Inquiries"
+      "cta": "Start Capturing Inquiries",
+      "docsLabel": "View Docs"
     }
   },
   "contact": {

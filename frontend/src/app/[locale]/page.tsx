@@ -1,4 +1,6 @@
 import Script from "next/script"
+import { cookies } from "next/headers"
+import { redirect } from "next/navigation"
 import { getDictionary, type Locale } from "@/lib/dictionaries"
 import LandingHeader from "@/components/landing/landing-header"
 import Hero from "@/components/landing/hero"
@@ -12,6 +14,14 @@ export default async function LandingPage({
   params: Promise<{ locale: string }>
 }) {
   const { locale } = await params
+
+  // Redirect authenticated users to dashboard
+  const cookieStore = await cookies()
+  const pbAuth = cookieStore.get("pb_auth")
+  if (pbAuth?.value) {
+    redirect("/dashboard")
+  }
+
   const dict = await getDictionary(locale as Locale)
 
   return (
@@ -21,6 +31,9 @@ export default async function LandingPage({
         servicesLabel={dict.header.services}
         contactLabel={dict.header.contact}
         loginLabel={dict.header.login}
+        docsLabel={dict.header.docs}
+        formEndpointsDocsLabel={dict.header.formEndpointsDocs}
+        inquiryWidgetDocsLabel={dict.header.inquiryWidgetDocs}
       />
       <main>
         <Hero
@@ -63,6 +76,8 @@ export default async function LandingPage({
               benefits={dict.services.form.benefits}
               ctaText={dict.services.form.cta}
               ctaHref="/login"
+              docsText={dict.services.form.docsLabel}
+              docsHref={`/${locale}/docs/form-endpoints`}
             />
             <ServiceCard
               icon={
@@ -84,6 +99,8 @@ export default async function LandingPage({
               benefits={dict.services.widget.benefits}
               ctaText={dict.services.widget.cta}
               ctaHref="/login"
+              docsText={dict.services.widget.docsLabel}
+              docsHref={`/${locale}/docs/inquiry-widget`}
             />
           </div>
         </div>

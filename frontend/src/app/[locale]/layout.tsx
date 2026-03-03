@@ -1,6 +1,4 @@
 import type { Metadata } from "next"
-import { cookies } from "next/headers"
-import { redirect } from "next/navigation"
 import { getDictionary, type Locale } from "@/lib/dictionaries"
 
 export const dynamicParams = false
@@ -93,13 +91,6 @@ export default async function LocaleLayout({
   params: Promise<{ locale: string }>
 }) {
   const { locale } = await params
-
-  // Redirect authenticated users to dashboard
-  const cookieStore = await cookies()
-  const pbAuth = cookieStore.get("pb_auth")
-  if (pbAuth?.value) {
-    redirect("/dashboard")
-  }
 
   return (
     <>
