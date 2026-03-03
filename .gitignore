@@ -19,6 +19,9 @@ frontend/test-results/
 widget/node_modules/
 widget/dist/
 
+# Playwright MCP
+.playwright-mcp/
+
 # OS
 .DS_Store
 Thumbs.db

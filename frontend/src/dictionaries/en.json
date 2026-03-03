@@ -1,0 +1,53 @@
+{
+  "metadata": {
+    "title": "FormHandler — Simplify B2B Lead Generation",
+    "description": "Collect inquiries and form submissions from your website visitors effortlessly. Two powerful services for B2B sellers to acquire customers faster."
+  },
+  "header": {
+    "services": "Services",
+    "contact": "Contact",
+    "login": "Log In",
+    "getStarted": "Get Started"
+  },
+  "hero": {
+    "headline": "Simplify B2B Lead Generation",
+    "subheadline": "Collect inquiries and form submissions from your website visitors — effortlessly. Two powerful tools designed for B2B sellers who want more customers, less hassle.",
+    "cta": "Get Started Free"
+  },
+  "services": {
+    "sectionTitle": "Two Services, One Goal: More Customers",
+    "form": {
+      "title": "Form Endpoints",
+      "description": "Create form submission endpoints in seconds. Paste a URL into your website's HTML form and start collecting customer data instantly.",
+      "benefits": [
+        "Create unlimited form endpoints with unique URLs",
+        "Receive instant Telegram notifications on new submissions",
+        "View and manage all submissions in a clean dashboard"
+      ],
+      "cta": "Start Collecting Submissions"
+    },
+    "widget": {
+      "title": "Inquiry Widget",
+      "description": "A lightweight, embeddable chat widget that guides your website visitors through structured B2B trade inquiries — step by step.",
+      "benefits": [
+        "Embed on any website with a single script tag",
+        "Conversational flow with customizable questions",
+        "Built-in visitor analytics and country detection"
+      ],
+      "cta": "Start Capturing Inquiries"
+    }
+  },
+  "contact": {
+    "title": "Get in Touch",
+    "subtitle": "Have questions? Send us a message — this form is powered by FormHandler.",
+    "namePlaceholder": "Your name",
+    "emailPlaceholder": "Your email",
+    "messagePlaceholder": "Your message...",
+    "submit": "Send Message",
+    "success": "Message sent! We'll get back to you soon.",
+    "error": "Failed to send. Please try again."
+  },
+  "footer": {
+    "copyright": "© 2026 FormHandler. All rights reserved."
+  }
+}

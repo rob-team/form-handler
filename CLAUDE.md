@@ -7,6 +7,8 @@ Auto-generated from all feature plans. Last updated: 2026-03-01
 - PocketBase v0.36.x (SQLite-backed, existing instance from 001) (002-inquiry-widget)
 - TypeScript 5 (frontend), JavaScript ES5+ES6 (PocketBase JSVM hooks — no new hooks needed for this feature) + Next.js 16, React 19, shadcn/ui, Tailwind CSS 4, PocketBase JS SDK (`pocketbase` v0.26.x) (003-oauth-login)
 - PocketBase v0.36.x (SQLite-backed, existing instance from 001/002) — `_externalAuths` system collection for OAuth identities (003-oauth-login)
+- TypeScript 5 (frontend), JavaScript ES5+ES6 (PocketBase JSVM migration) + Next.js 16, React 19, shadcn/ui, Tailwind CSS 4, PocketBase JS SDK 0.26.x (no new dependencies added) (004-landing-page)
+- PocketBase v0.36.x (SQLite) — existing collections only, seed data via migration (004-landing-page)
 
 - JavaScript (PocketBase JSVM, goja ES5+ES6, synchronous only); + PocketBase v0.23+ (v0.36.x), Next.js 15, shadcn/ui, (001-form-saas)
 
@@ -26,10 +28,10 @@ npm test && npm run lint
 JavaScript (PocketBase JSVM, goja ES5+ES6, synchronous only);: Follow standard conventions
 
 ## Recent Changes
+- 004-landing-page: Added TypeScript 5 (frontend), JavaScript ES5+ES6 (PocketBase JSVM migration) + Next.js 16, React 19, shadcn/ui, Tailwind CSS 4, PocketBase JS SDK 0.26.x (no new dependencies added)
 - 003-oauth-login: Added TypeScript 5 (frontend), JavaScript ES5+ES6 (PocketBase JSVM hooks — no new hooks needed for this feature) + Next.js 16, React 19, shadcn/ui, Tailwind CSS 4, PocketBase JS SDK (`pocketbase` v0.26.x)
 - 002-inquiry-widget: Added TypeScript 5 (frontend + widget), JavaScript ES5+ES6 (PocketBase JSVM hooks) + Next.js 16, React 19, shadcn/ui, Tailwind CSS 4, Preact 10 (widget), esbuild (widget build)
 
-- 001-form-saas: Added JavaScript (PocketBase JSVM, goja ES5+ES6, synchronous only); + PocketBase v0.23+ (v0.36.x), Next.js 15, shadcn/ui,
 
 <!-- MANUAL ADDITIONS START -->
 <!-- MANUAL ADDITIONS END -->

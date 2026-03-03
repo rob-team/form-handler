@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation"
 
-// Root path redirects to login; the dashboard auth guard handles authenticated users.
+// Middleware handles / → /en or /zh redirect based on Accept-Language.
+// This fallback redirects to /en if middleware is bypassed.
 export default function RootPage() {
-  redirect("/login")
+  redirect("/en")
 }
