@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Skeleton } from "@/components/ui/skeleton"
+import { countryCodeToFlag } from "@/lib/utils"
 
 const PB_URL = process.env.NEXT_PUBLIC_POCKETBASE_URL ?? "http://127.0.0.1:8090"
 const PAGE_SIZE = 20
@@ -140,7 +141,7 @@ export default function VisitorActivity({ widgetId }: Props) {
             <div className="flex flex-wrap gap-2">
               {stats.top_countries.map((c) => (
                 <Badge key={c.country} variant="secondary">
-                  {c.country}: {c.count}
+                  {countryCodeToFlag(c.country)} {c.country}: {c.count}
                 </Badge>
               ))}
             </div>
@@ -170,7 +171,7 @@ export default function VisitorActivity({ widgetId }: Props) {
                   </span>
                   {r.country && (
                     <Badge variant="outline" className="text-xs">
-                      {r.country}
+                      {countryCodeToFlag(r.country)} {r.country}
                     </Badge>
                   )}
                   <span className="truncate text-xs">{r.page_url}</span>

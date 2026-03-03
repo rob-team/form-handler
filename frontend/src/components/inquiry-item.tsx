@@ -16,6 +16,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 import { Badge } from "@/components/ui/badge"
+import { countryCodeToFlag } from "@/lib/utils"
 
 interface Response {
   question_id: string
@@ -80,7 +81,7 @@ export default function InquiryItem({ inquiry, onDeleted }: Props) {
               {formatDate(inquiry.created)}
               {inquiry.country && (
                 <Badge variant="outline" className="ml-2 text-xs">
-                  {inquiry.country}
+                  {countryCodeToFlag(inquiry.country)} {inquiry.country}
                 </Badge>
               )}
             </CardDescription>

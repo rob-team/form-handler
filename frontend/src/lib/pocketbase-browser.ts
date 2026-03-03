@@ -21,7 +21,12 @@ export function getPocketBase(): PocketBase {
     client.authStore.loadFromCookie(document.cookie)
 
     client.authStore.onChange(() => {
-      document.cookie = client!.authStore.exportToCookie({ httpOnly: false })
+      const isSecure = window.location.protocol === "https:"
+      document.cookie = client!.authStore.exportToCookie({
+        httpOnly: false,
+        secure: isSecure,
+        sameSite: "Lax",
+      })
     })
   }
 

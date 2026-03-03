@@ -9,7 +9,7 @@ interface Props {
 export default function ChatBubble({ buttonText, isOpen, onClick }: Props) {
   return (
     <button
-      class="fh-bubble"
+      class={`fh-bubble${isOpen ? " fh-bubble-open" : ""}`}
       onClick={onClick}
       aria-label={isOpen ? "Close inquiry form" : buttonText}
       role="button"
