@@ -108,8 +108,8 @@ The landing page itself uses both platform services as a live demonstration: a "
 - **FR-018**: Both language versions MUST have the same page structure, sections, and call-to-action placement. Content MUST be naturally written in each language (not literal word-for-word translation).
 - **FR-019**: The landing page MUST include a "Contact Us" form section that submits visitor inquiries through the platform's own Form Submission service endpoint.
 - **FR-020**: The landing page MUST embed the actual Inquiry Widget (floating "Send Inquiry" chat button) so visitors can experience the conversational inquiry flow firsthand.
-- **FR-021**: The form endpoint and widget configuration used on the landing page MUST be owned by a dedicated system/admin account, separate from regular user accounts.
-- **FR-022**: The system/admin account, its form endpoint, and its widget configuration MUST be created automatically during deployment (seeded).
+- **FR-021**: The form endpoint and widget configuration used on the landing page MUST be owned by the site admin account.
+- **FR-022**: The admin MUST manually create the form and widget via the PocketBase dashboard, then configure their IDs as environment variables (`NEXT_PUBLIC_LANDING_FORM_ID`, `NEXT_PUBLIC_LANDING_WIDGET_ID`).
 - **FR-023**: The "Contact Us" form MUST collect three fields: name, email, and message. Email MUST be validated before submission.
 
 ## Clarifications
@@ -123,12 +123,12 @@ The landing page itself uses both platform services as a live demonstration: a "
 - Q: Should English and Chinese versions have identical content? → A: Same structure with localized tone — identical sections and CTAs, naturally written in each language (not literal translation).
 - Q: How should the Form Submission service be used on the landing page? → A: "Contact Us" form section at the bottom that submits via the platform's own form endpoint.
 - Q: How should the Inquiry Widget be used on the landing page? → A: Embed the actual floating chat widget — the same "Send Inquiry" button visitors would see on any client site.
-- Q: Who owns the form endpoint and widget configuration for the landing page? → A: A dedicated system/admin account created during deployment, keeping landing page resources separate from regular user data.
+- Q: Who owns the form endpoint and widget configuration for the landing page? → A: The site admin account. The admin manually creates the form and widget via the PocketBase dashboard and configures their IDs as environment variables.
 - Q: What fields should the "Contact Us" form collect? → A: Minimal — name, email, message.
 
 ## Assumptions
 
-- The landing page dogfoods (uses) both platform services: a "Contact Us" form via the Form Submission service and the embedded Inquiry Widget. No new backend collections or APIs are needed — it relies on existing service endpoints.
+- The landing page dogfoods (uses) both platform services: a "Contact Us" form via the Form Submission service and the embedded Inquiry Widget. No new backend collections, APIs, or migrations are needed — it relies on existing service endpoints. The admin manually creates the form and widget records.
 - The product name/branding ("FormHandler" or equivalent) already exists and can be referenced.
 - The existing authentication flow (email/password and OAuth login) is already implemented and the landing page simply links to it.
 - The landing page supports two languages: English and Chinese, served at separate URL path prefixes (`/en`, `/zh`). Each language version has its own crawlable URL for SEO.

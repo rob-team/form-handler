@@ -18,30 +18,22 @@ export $(cat .env | xargs)
 ./pocketbase serve --http=127.0.0.1:8090
 ```
 
-Migration `7_seed_landing_page.js` runs automatically on startup and creates the system account, form endpoint, and widget configuration.
+### 2. Create Form and Widget in PocketBase Dashboard
 
-### 2. Get Seed Record IDs
-
-After the first PocketBase start with the new migration, retrieve the seeded record IDs:
-
-```bash
-# Get the landing page form ID
-curl -s http://127.0.0.1:8090/api/collections/forms/records \
-  -H "Authorization: Bearer $(curl -s http://127.0.0.1:8090/api/admins/auth-with-password \
-    -d '{"identity":"admin@example.com","password":"YourAdminPassword"}' | jq -r .token)" \
-  | jq '.items[] | select(.name == "Landing Page Contact") | .id'
-
-# Get the landing page widget ID
-curl -s http://127.0.0.1:8090/api/collections/widgets/records \
-  -H "Authorization: Bearer $TOKEN" \
-  | jq '.items[] | select(.name == "Landing Page Widget") | .id'
-```
-
-Or check the PocketBase admin UI at `http://127.0.0.1:8090/_/`.
+1. Open `http://127.0.0.1:8090/_/` and log in
+2. Go to **forms** collection → Create new record:
+   - `name`: "Landing Page Contact" (or any name)
+   - `user`: select your admin account
+3. Go to **widgets** collection → Create new record:
+   - `name`: "Landing Page Widget" (or any name)
+   - `user`: select your admin account
+   - `questions`: paste your B2B questions JSON
+   - `active`: true
+4. Copy both record IDs
 
 ### 3. Configure Frontend Environment
 
-Add the seeded IDs to `frontend/.env.local`:
+Add the IDs to `frontend/.env.local`:
 
 ```env
 NEXT_PUBLIC_POCKETBASE_URL=http://127.0.0.1:8090
