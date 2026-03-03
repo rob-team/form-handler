@@ -10,6 +10,9 @@ export interface Dictionary {
     contact: string
     login: string
     getStarted: string
+    docs: string
+    formEndpointsDocs: string
+    inquiryWidgetDocs: string
   }
   hero: {
     headline: string
@@ -23,12 +26,14 @@ export interface Dictionary {
       description: string
       benefits: string[]
       cta: string
+      docsLabel: string
     }
     widget: {
       title: string
       description: string
       benefits: string[]
       cta: string
+      docsLabel: string
     }
   }
   contact: {

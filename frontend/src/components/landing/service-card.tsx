@@ -8,6 +8,8 @@ interface ServiceCardProps {
   benefits: string[]
   ctaText: string
   ctaHref: string
+  docsText?: string
+  docsHref?: string
 }
 
 export default function ServiceCard({
@@ -17,6 +19,8 @@ export default function ServiceCard({
   benefits,
   ctaText,
   ctaHref,
+  docsText,
+  docsHref,
 }: ServiceCardProps) {
   return (
     <div className="rounded-xl border bg-card p-6 md:p-8 space-y-4 flex flex-col">
@@ -41,7 +45,7 @@ export default function ServiceCard({
           </li>
         ))}
       </ul>
-      <div className="pt-2">
+      <div className="flex items-center gap-4 pt-2">
         <Link
           href={ctaHref}
           className="inline-flex items-center text-sm font-medium text-primary hover:underline"
@@ -59,6 +63,14 @@ export default function ServiceCard({
             />
           </svg>
         </Link>
+        {docsText && docsHref && (
+          <Link
+            href={docsHref}
+            className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+          >
+            {docsText}
+          </Link>
+        )}
       </div>
     </div>
   )

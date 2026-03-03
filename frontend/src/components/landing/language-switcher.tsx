@@ -7,7 +7,7 @@ interface LanguageSwitcherProps {
 
 export default function LanguageSwitcher({ locale }: LanguageSwitcherProps) {
   return (
-    <div className="flex items-center gap-1 text-sm">
+    <div className="flex shrink-0 items-center gap-1 whitespace-nowrap text-sm">
       <Link
         href="/en"
         className={cn(

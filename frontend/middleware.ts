@@ -14,11 +14,15 @@ export function middleware(request: NextRequest) {
     return response
   }
 
-  // Landing page locale paths: set x-locale header for root layout
-  if (pathname === "/en" || pathname === "/zh") {
-    const locale = pathname.replace("/", "")
+  // Locale-prefixed paths: set x-locale header for root layout
+  if (pathname.startsWith("/en")) {
     const response = NextResponse.next()
-    response.headers.set("x-locale", locale)
+    response.headers.set("x-locale", "en")
+    return response
+  }
+  if (pathname.startsWith("/zh")) {
+    const response = NextResponse.next()
+    response.headers.set("x-locale", "zh")
     return response
   }
 
@@ -26,5 +30,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/", "/en", "/zh"],
+  matcher: ["/", "/en/:path*", "/zh/:path*"],
 }
