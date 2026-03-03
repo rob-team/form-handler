@@ -11,15 +11,15 @@ Design style: clean and minimal, with strong headlines and clear service selling
 
 ## Technical Context
 
-**Language/Version**: TypeScript 5 (frontend), JavaScript ES5+ES6 (PocketBase JSVM migration)
+**Language/Version**: TypeScript 5 (frontend)
 **Primary Dependencies**: Next.js 16, React 19, shadcn/ui, Tailwind CSS 4, PocketBase JS SDK 0.26.x (no new dependencies added)
-**Storage**: PocketBase v0.36.x (SQLite) — existing collections only, seed data via migration
+**Storage**: PocketBase v0.36.x (SQLite) — existing collections only, admin manually creates form + widget records
 **Testing**: Playwright (E2E tests for P1/P2 user stories, contract test for contact form submission)
 **Target Platform**: Web (desktop + mobile, 320px–1920px)
-**Project Type**: Web application (frontend page + backend seed migration)
+**Project Type**: Web application (frontend page only, no backend changes)
 **Performance Goals**: Full page load <3s, all primary content visible without JS interaction
 **Constraints**: No new npm dependencies (use existing shadcn/ui + Tailwind), two locales only (EN/ZH), server-rendered for SEO
-**Scale/Scope**: 1 new page (2 locale variants), ~8 new components, 1 migration, 1 middleware, 2 dictionary files
+**Scale/Scope**: 1 new page (2 locale variants), ~8 new components, 1 middleware, 2 dictionary files
 
 ## Constitution Check
 
@@ -79,13 +79,9 @@ frontend/
 │   │   └── zh.json                   # Chinese translations
 │   └── lib/
 │       └── dictionaries.ts           # Dictionary type + async loader
-├── middleware.ts                      # Locale detection + auth redirect
+├── middleware.ts                      # Locale detection + x-locale header
 └── public/
     └── robots.txt                    # AI-friendly (allow all crawlers)
-
-backend/
-└── pb_migrations/
-    └── 7_seed_landing_page.js        # Seed system account + form + widget
 
 tests/
 ├── e2e/
@@ -94,7 +90,7 @@ tests/
     └── landing-contact.spec.ts       # Contract: AJAX form submission via existing endpoint
 ```
 
-**Structure Decision**: Extends the existing web application structure. Landing page components are isolated in `components/landing/` to keep the dashboard UI untouched. Dictionary files live alongside `lib/` for easy imports. Middleware is at the frontend root (Next.js convention). The single new migration follows the existing numbering in `pb_migrations/`.
+**Structure Decision**: Extends the existing web application structure. Landing page components are isolated in `components/landing/` to keep the dashboard UI untouched. Dictionary files live alongside `lib/` for easy imports. Middleware is at the frontend root (Next.js convention). No backend changes — form and widget records are created manually by the admin.
 
 ## Page Layout
 
@@ -226,14 +222,13 @@ Allow: /
 - Widget script URL from `NEXT_PUBLIC_WIDGET_URL`
 - Widget ID from `NEXT_PUBLIC_LANDING_WIDGET_ID`
 
-### 6. Seed Migration
+### 6. Manual Setup (No Migration)
 
-```javascript
-// backend/pb_migrations/7_seed_landing_page.js
-// Idempotent: checks for existing system@formhandler.local user
-// Creates: system user → form → widget
-// Records IDs are PocketBase auto-generated (15-char alphanumeric)
-```
+The admin creates the form and widget records via the PocketBase dashboard, then sets the environment variables:
+- `NEXT_PUBLIC_LANDING_FORM_ID` — ID of the form record created for "Contact Us"
+- `NEXT_PUBLIC_LANDING_WIDGET_ID` — ID of the widget record created for the floating inquiry widget
+
+If either variable is unset, the corresponding feature gracefully degrades (contact form shows error on submit, widget does not appear).
 
 ## Complexity Tracking
 

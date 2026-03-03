@@ -4,44 +4,33 @@
 
 ## Overview
 
-No new collections are introduced. This feature dogfoods existing collections (`users`, `forms`, `widgets`, `submissions`, `inquiries`, `visitor_records`) via seed data created by a migration.
+No new collections or migrations are introduced. This feature dogfoods existing collections (`forms`, `widgets`, `submissions`, `inquiries`, `visitor_records`) via manually created records.
 
-## Seed Data (Migration 7)
+## Manual Setup (Admin)
 
-### System User Account
-
-| Field       | Value                           | Notes                          |
-| ----------- | ------------------------------- | ------------------------------ |
-| email       | `system@formhandler.local`      | Not a real email; internal use |
-| password    | Auto-generated secure random    | Not used for login             |
-| name        | `FormHandler System`            | Display name                   |
-| verified    | `true`                          | Skip email verification        |
-
-**Purpose**: Owns landing page form endpoint and widget configuration. Not intended for human login.
+The site admin creates the following records via the PocketBase dashboard, then configures their IDs as environment variables.
 
 ### Landing Page Form (in `forms` collection)
 
 | Field             | Value                     | Notes                              |
 | ----------------- | ------------------------- | ---------------------------------- |
-| name              | `Landing Page Contact`    | Internal label                     |
-| user              | → system user ID          | Owned by system account            |
-| telegram_chat_id  | (empty)                   | Configured post-deployment by admin|
-
-**Purpose**: Receives "Contact Us" form submissions from the landing page. The form ID is exposed to the frontend via `NEXT_PUBLIC_LANDING_FORM_ID` environment variable.
+| name              | `Landing Page Contact`    | Internal label (any name works)    |
+| user              | → admin user ID           | Owned by admin account             |
+| telegram_chat_id  | (optional)                | Set if Telegram notifications desired |
 
 ### Landing Page Widget (in `widgets` collection)
 
 | Field             | Value                     | Notes                              |
 | ----------------- | ------------------------- | ---------------------------------- |
-| name              | `Landing Page Widget`     | Internal label                     |
-| user              | → system user ID          | Owned by system account            |
+| name              | `Landing Page Widget`     | Internal label (any name works)    |
+| user              | → admin user ID           | Owned by admin account             |
 | button_text       | `Send Inquiry`            | Default CTA text                   |
-| greeting          | `Hi! How can we help?`   | Default greeting                   |
-| questions         | (default B2B template)    | See below                          |
-| active            | `true`                    | Enabled by default                 |
-| telegram_chat_id  | (empty)                   | Configured post-deployment by admin|
+| greeting          | `Hi! How can we help?`    | Default greeting                   |
+| questions         | (B2B question template)   | See below                          |
+| active            | `true`                    | Must be active                     |
+| telegram_chat_id  | (optional)                | Set if Telegram notifications desired |
 
-**Default questions** (same as widget default template):
+**Suggested questions** (customizable):
 ```json
 [
   { "id": "q1", "label": "Which country are you from?", "type": "text", "required": true, "options": null },
@@ -53,30 +42,21 @@ No new collections are introduced. This feature dogfoods existing collections (`
 ]
 ```
 
-**Purpose**: Powers the floating inquiry widget on the landing page. The widget ID is exposed to the frontend via `NEXT_PUBLIC_LANDING_WIDGET_ID` environment variable.
-
-## Entity Relationships (unchanged)
-
-```
-system_user (1:1) landing_form (1:N) submissions
-system_user (1:1) landing_widget (1:N) inquiries
-                  landing_widget (1:N) visitor_records
-```
-
-## Migration Idempotency
-
-The migration MUST be idempotent:
-1. Check if a user with email `system@formhandler.local` already exists
-2. If not, create the user, form, and widget
-3. If yes, skip creation (do nothing)
-
-This ensures re-running migrations (e.g., on redeployment) does not create duplicate records.
-
-## New Environment Variables
+## Environment Variables
 
 | Variable                        | Example Value              | Where Used    |
 | ------------------------------- | -------------------------- | ------------- |
 | `NEXT_PUBLIC_LANDING_FORM_ID`   | `<form record ID>`        | Frontend      |
 | `NEXT_PUBLIC_LANDING_WIDGET_ID` | `<widget record ID>`      | Frontend      |
 
-These are set after the first deployment (after migration creates the records). The IDs are stable PocketBase record IDs.
+Copy the record IDs from the PocketBase dashboard after creating the form and widget.
+
+## Entity Relationships (unchanged)
+
+```
+admin_user (1:1) landing_form (1:N) submissions
+admin_user (1:1) landing_widget (1:N) inquiries
+                 landing_widget (1:N) visitor_records
+```
+
+All submissions and inquiries from the landing page appear in the admin's dashboard.

@@ -66,23 +66,20 @@ if (res.type === 'opaqueredirect' || res.ok) {
 - Import widget source directly into the Next.js build: Would tightly couple the widget to the landing page build, breaking the independent deployment model. The widget uses Preact while the landing page uses React.
 - iframe embed: Adds complexity and breaks the seamless integration feel.
 
-## R5: System Account Seeding
+## R5: Form & Widget Setup
 
-**Decision**: Create a PocketBase migration script (`7_seed_landing_page.js`) that idempotently creates: (1) a system admin user account, (2) a form endpoint for the contact form, and (3) a widget configuration for the inquiry widget.
+**Decision**: Admin manually creates the form and widget records via PocketBase dashboard, then configures their IDs as environment variables. No migration or seed script.
 
-**Rationale**: PocketBase migrations run automatically on startup and are idempotent. This aligns with the existing migration pattern (6 migrations already exist). The system account credentials and IDs are deterministic, making them referenceable from the frontend via environment variables.
+**Rationale**: The landing page form and widget are one-time setup records owned by the site admin. Manual creation is simpler, gives the admin full control over configuration, and keeps submissions/inquiries visible in the admin's own dashboard. No backend code changes required.
 
 **Alternatives considered**:
-- Seed script run manually during deployment: Error-prone and easy to forget. Migrations are automatic.
-- Hardcoded IDs in frontend code: Fragile. Better to use environment variables pointing to the seeded records.
-- Create via PocketBase admin UI: Manual, not reproducible, and doesn't work in CI/CD.
+- Automated seed migration: Creates a separate system account, but the records don't appear in the admin's dashboard. Migration output (record IDs) is hard to retrieve in production environments.
+- Hardcoded IDs in frontend code: Fragile across environments.
 
 **Implementation pattern**:
-- Migration creates user with a known email (e.g., `system@formhandler.local`) and secure random password
-- Creates form named "Landing Page Contact" owned by system user
-- Creates widget named "Landing Page Widget" with default B2B trade questions, owned by system user
-- Form ID and Widget ID exposed as environment variables: `NEXT_PUBLIC_LANDING_FORM_ID`, `NEXT_PUBLIC_LANDING_WIDGET_ID`
-- Migration is idempotent: checks if records already exist before creating
+- Admin creates form and widget in PocketBase dashboard under their own account
+- Record IDs configured as `NEXT_PUBLIC_LANDING_FORM_ID` and `NEXT_PUBLIC_LANDING_WIDGET_ID`
+- Frontend gracefully degrades if variables are unset (contact form shows error, widget doesn't load)
 
 ## R6: Middleware Routing Strategy
 

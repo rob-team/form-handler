@@ -113,12 +113,12 @@ endpoint implementation. E2E tests MUST be included for every P1 user story.
 
 ### Implementation for User Story 4
 
-- [x] T020 [US4] Create PocketBase seed migration in `backend/pb_migrations/7_seed_landing_page.js` — idempotent migration: check if user with email `system@formhandler.local` exists; if not, create system user (email, random password, name "FormHandler System", verified: true), create form "Landing Page Contact" owned by system user, create widget "Landing Page Widget" with default B2B questions (country, company, quantity, timeline, email, requirements), active: true, owned by system user; log created record IDs for env var configuration
+- [x] T020 [REMOVED] ~~Seed migration~~ — replaced by manual setup: admin creates form + widget in PocketBase dashboard, sets `NEXT_PUBLIC_LANDING_FORM_ID` and `NEXT_PUBLIC_LANDING_WIDGET_ID` env vars
 - [x] T021 [P] [US4] Update frontend env example in `frontend/.env.local.example` — add `NEXT_PUBLIC_LANDING_FORM_ID` and `NEXT_PUBLIC_LANDING_WIDGET_ID` variables with placeholder comments
 
 ### Tests for User Story 4
 
-- [x] T022 [US4] Write contract test in `frontend/tests/contract/landing-contact.spec.ts` — test AJAX form submission pattern: POST JSON to `/api/submit/{formId}` with `redirect: 'manual'`, verify 302 redirect (opaqueredirect) for valid form ID, verify 404 for invalid form ID; requires PocketBase running with seeded data
+- [x] T022 [US4] Write contract test in `frontend/tests/contract/landing-contact.spec.ts` — test AJAX form submission pattern: POST JSON to `/api/submit/{formId}` with `redirect: 'manual'`, verify 302 redirect (opaqueredirect) for valid form ID, verify 404 for invalid form ID; requires PocketBase running
 
 ### Implementation for User Story 4 (continued)
 
@@ -154,7 +154,7 @@ endpoint implementation. E2E tests MUST be included for every P1 user story.
   - US1 (P1) can proceed independently after Phase 2
   - US2 (P2) depends on US1 (CTAs are built into US1 components)
   - US3 (P3) depends on US1 (integrates header into existing page)
-  - US4 (P2) depends on US1 (integrates contact form + widget into existing page); seed migration (T020) can run in parallel with US1
+  - US4 (P2) depends on US1 (integrates contact form + widget into existing page); requires admin to manually create form + widget in PocketBase
 - **Polish (Phase 7)**: Depends on all user stories being complete
 
 ### User Story Dependencies
@@ -164,7 +164,7 @@ Phase 1 (Setup)
     ↓
 Phase 2 (Foundational)
     ↓
-Phase 3 (US1 - Content) ←── T020 seed migration can start in parallel
+Phase 3 (US1 - Content)
     ↓
 Phase 4 (US2 - Navigation) ──┐
 Phase 5 (US3 - Header)    ──┤── These three can run in any order after US1
@@ -187,7 +187,7 @@ Phase 7 (Polish)
 - **Phase 2**: T009 (robots.txt) can run in parallel with T005–T008
 - **Phase 3**: T010 (hero), T011 (service-card), T012 (footer) can run in parallel
 - **Phase 5**: T017 (language-switcher) can run in parallel with earlier tasks
-- **Phase 6**: T020 (seed migration) and T021 (env example) can start as early as Phase 2 completes
+- **Phase 6**: T021 (env example) can start as early as Phase 2 completes
 
 ---
 
