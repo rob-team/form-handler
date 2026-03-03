@@ -1,7 +1,8 @@
 "use client"
 
-import { useState } from "react"
+import { Suspense, useState } from "react"
 import Link from "next/link"
+import { useSearchParams } from "next/navigation"
 import { getPocketBase } from "@/lib/pocketbase-browser"
 import { Button } from "@/components/ui/button"
 import {
@@ -16,10 +17,13 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import Logo from "@/components/logo"
+import OAuthButtons from "@/components/oauth-buttons"
 
-export default function LoginPage() {
+function LoginForm() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
+  const searchParams = useSearchParams()
+  const redirectTo = searchParams.get("redirect") || "/dashboard"
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -33,9 +37,7 @@ export default function LoginPage() {
     try {
       const pb = getPocketBase()
       await pb.collection("users").authWithPassword(email, password)
-      // Full page navigation so the server sees the fresh auth cookie.
-      // router.push would use cached RSC response and fail after logout→login.
-      window.location.href = "/dashboard"
+      window.location.href = redirectTo
     } catch {
       setError("Invalid email or password. Please try again.")
       setLoading(false)
@@ -43,61 +45,72 @@ export default function LoginPage() {
   }
 
   return (
+    <Card className="w-full max-w-sm">
+      <CardHeader>
+        <CardTitle>Log in</CardTitle>
+        <CardDescription>
+          Don&apos;t have an account?{" "}
+          <Link href="/register" className="underline">
+            Create one
+          </Link>
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <OAuthButtons redirect={redirectTo} />
+      </CardContent>
+      <form onSubmit={handleSubmit}>
+        <CardContent className="space-y-4 pt-0">
+          {error && (
+            <Alert variant="destructive" role="alert">
+              <AlertDescription>{error}</AlertDescription>
+            </Alert>
+          )}
+          <div className="space-y-1">
+            <Label htmlFor="email">Email</Label>
+            <Input
+              id="email"
+              name="email"
+              type="email"
+              autoComplete="email"
+              required
+            />
+          </div>
+          <div className="space-y-1">
+            <Label htmlFor="password">Password</Label>
+            <Input
+              id="password"
+              name="password"
+              type="password"
+              autoComplete="current-password"
+              required
+            />
+          </div>
+          <Link
+            href="/reset-password"
+            className="text-sm text-muted-foreground underline block"
+          >
+            Forgot password?
+          </Link>
+        </CardContent>
+        <CardFooter className="pt-4">
+          <Button type="submit" className="w-full" disabled={loading}>
+            {loading ? "Logging in…" : "Log in"}
+          </Button>
+        </CardFooter>
+      </form>
+    </Card>
+  )
+}
+
+export default function LoginPage() {
+  return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4">
       <div className="mb-8">
         <Logo size="lg" href={undefined} />
       </div>
-      <Card className="w-full max-w-sm">
-        <CardHeader>
-          <CardTitle>Log in</CardTitle>
-          <CardDescription>
-            Don&apos;t have an account?{" "}
-            <Link href="/register" className="underline">
-              Create one
-            </Link>
-          </CardDescription>
-        </CardHeader>
-        <form onSubmit={handleSubmit}>
-          <CardContent className="space-y-4">
-            {error && (
-              <Alert variant="destructive" role="alert">
-                <AlertDescription>{error}</AlertDescription>
-              </Alert>
-            )}
-            <div className="space-y-1">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                name="email"
-                type="email"
-                autoComplete="email"
-                required
-              />
-            </div>
-            <div className="space-y-1">
-              <Label htmlFor="password">Password</Label>
-              <Input
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                required
-              />
-            </div>
-            <Link
-              href="/reset-password"
-              className="text-sm text-muted-foreground underline block"
-            >
-              Forgot password?
-            </Link>
-          </CardContent>
-          <CardFooter className="pt-4">
-            <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? "Logging in…" : "Log in"}
-            </Button>
-          </CardFooter>
-        </form>
-      </Card>
+      <Suspense>
+        <LoginForm />
+      </Suspense>
     </div>
   )
 }

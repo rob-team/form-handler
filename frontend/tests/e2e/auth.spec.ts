@@ -84,8 +84,9 @@ test.describe("US1 — User Registration and Login", () => {
     await expect(page).toHaveURL(/\/dashboard/, { timeout: 8000 })
     await page.waitForLoadState("networkidle")
 
-    // Click logout (window.location.href causes full page navigation)
-    await page.getByRole("button", { name: /log ?out|sign ?out/i }).click()
+    // Open user avatar menu, then click "Log out"
+    await page.getByRole("button").filter({ has: page.locator('[data-slot="avatar"]') }).click()
+    await page.getByRole("menuitem", { name: /log ?out/i }).click()
     await expect(page).toHaveURL(/\/login/, { timeout: 10000 })
 
     // Navigating to /dashboard should redirect back to /login
