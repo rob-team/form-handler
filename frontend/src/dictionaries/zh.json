@@ -1,0 +1,53 @@
+{
+  "metadata": {
+    "title": "FormHandler — 简化B2B获客流程",
+    "description": "轻松收集网站访客的询盘和表单提交。两大强力工具，帮助B2B卖家更快获取客户。"
+  },
+  "header": {
+    "services": "服务",
+    "contact": "联系我们",
+    "login": "登录",
+    "getStarted": "立即开始"
+  },
+  "hero": {
+    "headline": "让B2B获客变得简单",
+    "subheadline": "轻松收集网站访客的询盘和表单信息。两大专为B2B卖家打造的获客利器，让您专注业务，客户自然来。",
+    "cta": "免费开始使用"
+  },
+  "services": {
+    "sectionTitle": "两大服务，一个目标：获取更多客户",
+    "form": {
+      "title": "表单接收端点",
+      "description": "几秒内创建表单提交端点。只需将URL粘贴到您网站的HTML表单中，即可立即开始收集客户信息。",
+      "benefits": [
+        "创建无限数量的表单端点，每个拥有唯一URL",
+        "新提交时立即通过Telegram推送通知",
+        "在简洁的管理面板中查看和管理所有提交"
+      ],
+      "cta": "开始收集表单"
+    },
+    "widget": {
+      "title": "询盘聊天组件",
+      "description": "一个轻量级、可嵌入的聊天组件，引导您的网站访客逐步完成结构化的B2B贸易询盘。",
+      "benefits": [
+        "一行代码即可嵌入任何网站",
+        "对话式交互，问题完全自定义",
+        "内置访客分析和国家地区识别"
+      ],
+      "cta": "开始获取询盘"
+    }
+  },
+  "contact": {
+    "title": "联系我们",
+    "subtitle": "有任何问题？给我们留言吧——此表单由 FormHandler 驱动。",
+    "namePlaceholder": "您的姓名",
+    "emailPlaceholder": "您的邮箱",
+    "messagePlaceholder": "请输入您的留言...",
+    "submit": "发送消息",
+    "success": "消息已发送！我们会尽快回复您。",
+    "error": "发送失败，请重试。"
+  },
+  "footer": {
+    "copyright": "© 2026 FormHandler. 保留所有权利。"
+  }
+}
