@@ -60,6 +60,12 @@
         "description": "",
         "items": ["No server development needed", "No email configuration", "No database maintenance"],
         "summary": "Copy one snippet of code and go live."
+      },
+      {
+        "title": "Built-in Visitor Analytics",
+        "description": "Automatically track visitor activity:",
+        "items": ["See if anyone is visiting your site in real time", "Identify which countries your visitors come from", "Find out which product pages get the most attention"],
+        "summary": "Know your audience without installing any third-party analytics."
       }
     ]
   },
