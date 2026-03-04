@@ -26,27 +26,29 @@ export default function Solution({ title, subtitle, features }: SolutionProps) {
           </p>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-6 md:grid-cols-2 items-stretch">
           {features.map((feature, i) => (
-            <div key={i} className="rounded-xl border bg-card p-6 space-y-3">
+            <div key={i} className="rounded-xl border bg-card p-6 flex flex-col">
               <h3 className="text-lg font-semibold flex items-center gap-2">
                 <Check className="h-5 w-5 text-primary shrink-0" />
                 {feature.title}
               </h3>
-              {feature.description && (
-                <p className="text-sm text-muted-foreground">{feature.description}</p>
-              )}
-              {feature.items.length > 0 && (
-                <ul className="space-y-1 pl-1">
-                  {feature.items.map((item, j) => (
-                    <li key={j} className="flex items-start gap-2 text-sm text-muted-foreground">
-                      <span className="shrink-0 mt-0.5">&#x2022;</span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-              <p className="text-sm font-medium border-t pt-3">
+              <div className="flex-1 space-y-3 pt-3">
+                {feature.description && (
+                  <p className="text-sm text-muted-foreground">{feature.description}</p>
+                )}
+                {feature.items.length > 0 && (
+                  <ul className="space-y-1 pl-1">
+                    {feature.items.map((item, j) => (
+                      <li key={j} className="flex items-start gap-2 text-sm text-muted-foreground">
+                        <span className="shrink-0 mt-0.5">&#x2022;</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+              <p className="text-sm font-medium border-t pt-3 mt-3">
                 {feature.summary}
               </p>
             </div>
