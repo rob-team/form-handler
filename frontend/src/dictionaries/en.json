@@ -44,6 +44,12 @@
         "summary": "Sales gets complete info upfront — not just \"Hi, send me price.\""
       },
       {
+        "title": "Built-in Visitor Analytics",
+        "description": "Automatically track visitor activity:",
+        "items": ["See if anyone is visiting your site in real time", "Identify which countries your visitors come from", "Find out which product pages get the most attention"],
+        "summary": "Know your audience without installing any third-party analytics."
+      },
+      {
         "title": "Real-time Telegram Push",
         "description": "After visitor submits:",
         "items": ["Pushed to your Telegram in 5 seconds", "Instant mobile notification", "Supports group push"],
