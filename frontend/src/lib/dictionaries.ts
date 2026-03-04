@@ -6,10 +6,9 @@ export interface Dictionary {
     description: string
   }
   header: {
-    services: string
-    contact: string
+    features: string
+    faq: string
     login: string
-    getStarted: string
     docs: string
     formEndpointsDocs: string
     inquiryWidgetDocs: string
@@ -17,24 +16,54 @@ export interface Dictionary {
   hero: {
     headline: string
     subheadline: string
+    tagline: string
     cta: string
+    demo: string
   }
-  services: {
+  demo: {
+    title: string
+  }
+  painPoints: {
+    title: string
+    intro: string
+    items: string[]
+    conclusion: string
+  }
+  solution: {
+    title: string
+    subtitle: string
+    features: {
+      title: string
+      description: string
+      items: string[]
+      summary: string
+    }[]
+  }
+  useCases: {
+    title: string
+    items: string[]
+    bestForLabel: string
+    bestForItems: string[]
+  }
+  steps: {
+    title: string
     sectionTitle: string
-    form: {
-      title: string
-      description: string
-      benefits: string[]
-      cta: string
-      docsLabel: string
-    }
-    widget: {
-      title: string
-      description: string
-      benefits: string[]
-      cta: string
-      docsLabel: string
-    }
+    items: string[]
+    conclusion: string
+  }
+  comparison: {
+    title: string
+    headers: string[]
+    rows: string[][]
+  }
+  techSecurity: {
+    title: string
+    items: string[]
+    compatibility: string
+  }
+  faq: {
+    title: string
+    items: { q: string; a: string }[]
   }
   contact: {
     title: string
@@ -46,8 +75,16 @@ export interface Dictionary {
     success: string
     error: string
   }
+  finalCta: {
+    title: string
+    subtitle: string
+    cta: string
+    login: string
+  }
   footer: {
     copyright: string
+    brand: string
+    tagline: string
   }
 }
 
