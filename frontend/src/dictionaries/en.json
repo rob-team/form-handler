@@ -1,46 +1,104 @@
 {
   "metadata": {
-    "title": "FormHandler — Simplify B2B Lead Generation",
-    "description": "Collect inquiries and form submissions from your website visitors effortlessly. Two powerful services for B2B sellers to acquire customers faster."
+    "title": "FormHandler — Never Miss Another Overseas Inquiry",
+    "description": "A structured inquiry system designed for B2B export websites. Inquiries pushed to your Telegram within 5 seconds. No server needed — live in 5 minutes."
   },
   "header": {
-    "services": "Services",
-    "contact": "Contact",
+    "features": "Features",
+    "faq": "FAQ",
     "login": "Log In",
-    "getStarted": "Get Started",
     "docs": "Docs",
     "formEndpointsDocs": "Form Endpoints",
     "inquiryWidgetDocs": "Inquiry Widget"
   },
   "hero": {
-    "headline": "Simplify B2B Lead Generation",
-    "subheadline": "Collect inquiries and form submissions from your website visitors — effortlessly. Two powerful tools designed for B2B sellers who want more customers, less hassle.",
-    "cta": "Get Started Free"
+    "headline": "Never Miss Another Overseas Inquiry",
+    "subheadline": "A structured inquiry system designed for B2B export websites.\nInquiries pushed to your Telegram within 5 seconds.",
+    "tagline": "No server · No email config · Live in 5 minutes",
+    "cta": "Create Inquiry Entry",
+    "demo": "View Live Demo"
   },
-  "services": {
-    "sectionTitle": "Two Services, One Goal: More Customers",
-    "form": {
-      "title": "Form Endpoints",
-      "description": "Create form submission endpoints in seconds. Paste a URL into your website's HTML form and start collecting customer data instantly.",
-      "benefits": [
-        "Create unlimited form endpoints with unique URLs",
-        "Receive instant Telegram notifications on new submissions",
-        "View and manage all submissions in a clean dashboard"
-      ],
-      "cta": "Start Collecting Submissions",
-      "docsLabel": "View Docs"
-    },
-    "widget": {
-      "title": "Inquiry Widget",
-      "description": "A lightweight, embeddable chat widget that guides your website visitors through structured B2B trade inquiries — step by step.",
-      "benefits": [
-        "Embed on any website with a single script tag",
-        "Conversational flow with customizable questions",
-        "Built-in visitor analytics and country detection"
-      ],
-      "cta": "Start Capturing Inquiries",
-      "docsLabel": "View Docs"
-    }
+  "demo": {
+    "title": "Live Demo"
+  },
+  "painPoints": {
+    "title": "Is Your Website Actually Helping You Win Orders?",
+    "intro": "Most export websites have a \"Contact Us\" page, but the real problems are:",
+    "items": [
+      "Sales sees emails hours too late",
+      "Form fields too basic — incomplete buyer info",
+      "Too much spam, no way to filter",
+      "High IT cost, painful to maintain",
+      "No idea which product page brought the buyer"
+    ],
+    "conclusion": "By the time you see the inquiry, the buyer has already contacted your competitor."
+  },
+  "solution": {
+    "title": "An Inquiry System Built for Export Businesses",
+    "subtitle": "We're not a generic form tool. We're purpose-built for export company websites.",
+    "features": [
+      {
+        "title": "Structured Inquiry Fields",
+        "description": "Collect:",
+        "items": ["Company name", "Country / Region", "Product model", "Order quantity", "Budget range", "Custom fields"],
+        "summary": "Sales gets complete info upfront — not just \"Hi, send me price.\""
+      },
+      {
+        "title": "Real-time Telegram Push",
+        "description": "After visitor submits:",
+        "items": ["Pushed to your Telegram in 5 seconds", "Instant mobile notification", "Supports group push"],
+        "summary": "No waiting for email refresh. Never miss the golden 10 minutes."
+      },
+      {
+        "title": "Embedded Floating Button",
+        "description": "Appears automatically at the bottom-right: \"Send Inquiry\" / \"Get Quote\"",
+        "items": [],
+        "summary": "Visitors fill in directly — no page redirect. Significantly higher conversion than traditional contact pages."
+      },
+      {
+        "title": "No Backend, No SMTP",
+        "description": "",
+        "items": ["No server development needed", "No email configuration", "No database maintenance"],
+        "summary": "Copy one snippet of code and go live."
+      }
+    ]
+  },
+  "useCases": {
+    "title": "Works for All B2B Websites",
+    "items": ["Export company websites", "Alibaba independent stores", "Factory product showcase sites", "SaaS company websites", "Trade show landing pages"],
+    "bestForLabel": "Especially suited for:",
+    "bestForItems": ["Companies without a tech team", "Websites that need to launch fast", "Businesses that value sales response speed"]
+  },
+  "steps": {
+    "title": "Deploy in 3 Minutes",
+    "sectionTitle": "3 Simple Steps to Go Live",
+    "items": ["Create an inquiry entry", "Copy embed code to your website", "Connect your Telegram account"],
+    "conclusion": "Done. No development cycle needed."
+  },
+  "comparison": {
+    "title": "Compared to Traditional Solutions",
+    "headers": ["Feature", "Email Form", "Generic Form Tool", "Our System"],
+    "rows": [
+      ["Real-time notifications", "❌", "⚠️", "✅ Telegram instant"],
+      ["Structured fields", "❌", "⚠️", "✅ Built for trade"],
+      ["Product page embed", "❌", "⚠️", "✅"],
+      ["Serverless deploy", "❌", "✅", "✅"],
+      ["Trade-focused", "❌", "❌", "✅"]
+    ]
+  },
+  "techSecurity": {
+    "title": "Technology & Security",
+    "items": ["Full HTTPS submission", "Data can be deleted anytime", "Export supported", "API submission (developer mode)", "Form endpoint integration supported"],
+    "compatibility": "Compatible with static sites, Next.js, WordPress, Shopify, and more."
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "items": [
+      { "q": "Is it free?", "a": "Currently in public beta — free to use. Enterprise plans may be offered in the future." },
+      { "q": "Where is data stored?", "a": "All data is securely stored server-side, with full delete and export support." },
+      { "q": "Does it support multiple languages?", "a": "Yes — works with Chinese and English websites. Fields are fully customizable." },
+      { "q": "Can inquiries be routed to different salespeople?", "a": "Currently supports Telegram group push. More granular routing rules coming soon." }
+    ]
   },
   "contact": {
     "title": "Get in Touch",
@@ -52,7 +110,15 @@
     "success": "Message sent! We'll get back to you soon.",
     "error": "Failed to send. Please try again."
   },
+  "finalCta": {
+    "title": "Add a Professional Inquiry Entry to Your Website Today",
+    "subtitle": "Stop letting inquiries sit in your inbox. Let sales get notified instantly.",
+    "cta": "Create Inquiry Entry",
+    "login": "Go to Dashboard"
+  },
   "footer": {
-    "copyright": "© 2026 FormHandler. All rights reserved."
+    "copyright": "© 2026 FormHandler. All rights reserved.",
+    "brand": "TheFreeMeal Form",
+    "tagline": "Lightweight inquiry infrastructure for export businesses"
   }
 }

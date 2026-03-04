@@ -5,10 +5,11 @@ import { Button } from "@/components/ui/button"
 interface HeroProps {
   headline: string
   subheadline: string
+  tagline: string
   cta: string
 }
 
-export default function Hero({ headline, subheadline, cta }: HeroProps) {
+export default function Hero({ headline, subheadline, tagline, cta }: HeroProps) {
   return (
     <section className="px-4 py-16 md:py-24">
       <div className="mx-auto grid max-w-5xl items-center gap-10 md:grid-cols-2">
@@ -16,8 +17,11 @@ export default function Hero({ headline, subheadline, cta }: HeroProps) {
           <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
             {headline}
           </h1>
-          <p className="max-w-lg text-lg text-muted-foreground md:text-xl">
+          <p className="max-w-lg text-lg text-muted-foreground md:text-xl whitespace-pre-line">
             {subheadline}
+          </p>
+          <p className="text-sm text-muted-foreground">
+            {tagline}
           </p>
           <div className="pt-2">
             <Button asChild size="lg" className="text-base px-8 h-12">
@@ -25,12 +29,13 @@ export default function Hero({ headline, subheadline, cta }: HeroProps) {
             </Button>
           </div>
         </div>
-        <div className="relative aspect-[4/3] overflow-hidden rounded-xl shadow-lg">
+        <div className="flex items-center justify-center">
           <Image
             src="/hero.jpg"
-            alt="FormHandler services — Contact form and Live Chat widget"
-            fill
-            className="object-cover"
+            alt="FormHandler — Structured inquiry system for B2B export websites"
+            width={800}
+            height={600}
+            className="w-auto max-h-[400px] rounded-xl shadow-lg"
             priority
           />
         </div>

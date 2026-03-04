@@ -53,8 +53,8 @@ function JsonLd({ locale }: { locale: string }) {
         url: BASE_URL,
         description:
           locale === "zh"
-            ? "B2B卖家获客工具平台"
-            : "Lead generation tools for B2B sellers",
+            ? "为出口企业打造的轻量级询盘基础设施"
+            : "Lightweight inquiry infrastructure for export businesses",
       },
       {
         "@type": "SoftwareApplication",
@@ -64,8 +64,8 @@ function JsonLd({ locale }: { locale: string }) {
         operatingSystem: "Web",
         description:
           locale === "zh"
-            ? "轻松收集网站访客的询盘和表单提交。两大强力工具，帮助B2B卖家更快获取客户。"
-            : "Collect inquiries and form submissions from your website visitors effortlessly. Two powerful services for B2B sellers.",
+            ? "为 B2B 外贸官网设计的结构化询盘系统。访客提交后 5 秒内推送到你的 Telegram。"
+            : "A structured inquiry system designed for B2B export websites. Inquiries pushed to your Telegram within 5 seconds.",
         offers: {
           "@type": "Offer",
           price: "0",

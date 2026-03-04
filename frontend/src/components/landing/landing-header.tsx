@@ -15,8 +15,8 @@ import {
 
 interface LandingHeaderProps {
   locale: string
-  servicesLabel: string
-  contactLabel: string
+  featuresLabel: string
+  faqLabel: string
   loginLabel: string
   docsLabel?: string
   formEndpointsDocsLabel?: string
@@ -25,8 +25,8 @@ interface LandingHeaderProps {
 
 export default function LandingHeader({
   locale,
-  servicesLabel,
-  contactLabel,
+  featuresLabel,
+  faqLabel,
   loginLabel,
   docsLabel,
   formEndpointsDocsLabel,
@@ -42,16 +42,16 @@ export default function LandingHeader({
         {/* Desktop nav */}
         <nav className="hidden items-center gap-6 text-sm md:flex">
           <a
-            href={`/${locale}#services`}
+            href={`/${locale}#solution`}
             className="text-muted-foreground transition-colors hover:text-foreground"
           >
-            {servicesLabel}
+            {featuresLabel}
           </a>
           <a
-            href={`/${locale}#contact`}
+            href={`/${locale}#faq`}
             className="text-muted-foreground transition-colors hover:text-foreground"
           >
-            {contactLabel}
+            {faqLabel}
           </a>
           {docsLabel && formEndpointsDocsLabel && inquiryWidgetDocsLabel && (
             <DropdownMenu>
@@ -106,18 +106,18 @@ export default function LandingHeader({
         <nav className="border-t bg-background px-4 pb-4 pt-3 md:hidden">
           <div className="flex flex-col gap-1">
             <a
-              href={`/${locale}#services`}
+              href={`/${locale}#solution`}
               onClick={() => setMobileOpen(false)}
               className="rounded-md px-3 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-muted"
             >
-              {servicesLabel}
+              {featuresLabel}
             </a>
             <a
-              href={`/${locale}#contact`}
+              href={`/${locale}#faq`}
               onClick={() => setMobileOpen(false)}
               className="rounded-md px-3 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-muted"
             >
-              {contactLabel}
+              {faqLabel}
             </a>
             {docsLabel && formEndpointsDocsLabel && inquiryWidgetDocsLabel && (
               <>

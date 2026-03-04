@@ -16,8 +16,8 @@ export default async function DocsLayout({
     <>
       <LandingHeader
         locale={locale}
-        servicesLabel={dict.header.services}
-        contactLabel={dict.header.contact}
+        featuresLabel={dict.header.features}
+        faqLabel={dict.header.faq}
         loginLabel={dict.header.login}
         docsLabel={dict.header.docs}
         formEndpointsDocsLabel={dict.header.formEndpointsDocs}
@@ -26,7 +26,11 @@ export default async function DocsLayout({
       <main className="mx-auto max-w-5xl px-4 py-12 md:py-16">
         {children}
       </main>
-      <LandingFooter copyright={dict.footer.copyright} />
+      <LandingFooter
+        copyright={dict.footer.copyright}
+        brand={dict.footer.brand}
+        tagline={dict.footer.tagline}
+      />
     </>
   )
 }
