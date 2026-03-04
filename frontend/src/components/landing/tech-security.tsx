@@ -8,7 +8,7 @@ interface TechSecurityProps {
 
 export default function TechSecurity({ title, items, compatibility }: TechSecurityProps) {
   return (
-    <section className="px-4 py-16 md:py-24">
+    <section className="px-4 py-12 md:py-16">
       <div className="mx-auto max-w-3xl space-y-8">
         <h2 className="text-2xl font-bold text-center md:text-3xl">
           {title}

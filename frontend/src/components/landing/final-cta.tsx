@@ -9,7 +9,7 @@ interface FinalCtaProps {
 
 export default function FinalCta({ title, subtitle, cta }: FinalCtaProps) {
   return (
-    <section className="px-4 py-16 md:py-24">
+    <section className="px-4 py-12 md:py-16">
       <div className="mx-auto max-w-3xl text-center space-y-6">
         <h2 className="text-2xl font-bold md:text-3xl">
           {title}
