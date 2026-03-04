@@ -15,8 +15,8 @@ interface SolutionProps {
 
 export default function Solution({ title, subtitle, features }: SolutionProps) {
   return (
-    <section id="solution" className="px-4 py-16 md:py-24">
-      <div className="mx-auto max-w-3xl space-y-12">
+    <section id="solution" className="px-4 py-12 md:py-16">
+      <div className="mx-auto max-w-5xl space-y-8">
         <div className="text-center space-y-3">
           <h2 className="text-2xl font-bold md:text-3xl">
             {title}
@@ -26,27 +26,29 @@ export default function Solution({ title, subtitle, features }: SolutionProps) {
           </p>
         </div>
 
-        <div className="space-y-10">
+        <div className="grid gap-6 md:grid-cols-2 items-stretch">
           {features.map((feature, i) => (
-            <div key={i} className="rounded-xl border bg-card p-6 md:p-8 space-y-4">
-              <h3 className="text-xl font-semibold flex items-center gap-2">
+            <div key={i} className="rounded-xl border bg-card p-6 flex flex-col">
+              <h3 className="text-lg font-semibold flex items-center gap-2">
                 <Check className="h-5 w-5 text-primary shrink-0" />
                 {feature.title}
               </h3>
-              {feature.description && (
-                <p className="text-muted-foreground">{feature.description}</p>
-              )}
-              {feature.items.length > 0 && (
-                <ul className="space-y-1.5 pl-1">
-                  {feature.items.map((item, j) => (
-                    <li key={j} className="flex items-start gap-2 text-sm text-muted-foreground">
-                      <span className="shrink-0 mt-0.5">&#x2022;</span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-              <p className="text-sm font-medium border-t pt-4">
+              <div className="flex-1 space-y-3 pt-3">
+                {feature.description && (
+                  <p className="text-sm text-muted-foreground">{feature.description}</p>
+                )}
+                {feature.items.length > 0 && (
+                  <ul className="space-y-1 pl-1">
+                    {feature.items.map((item, j) => (
+                      <li key={j} className="flex items-start gap-2 text-sm text-muted-foreground">
+                        <span className="shrink-0 mt-0.5">&#x2022;</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+              <p className="text-sm font-medium border-t pt-3 mt-3">
                 {feature.summary}
               </p>
             </div>

@@ -7,7 +7,7 @@ interface PainPointsProps {
 
 export default function PainPoints({ title, intro, items, conclusion }: PainPointsProps) {
   return (
-    <section className="px-4 py-16 md:py-24 bg-muted/30">
+    <section className="px-4 py-12 md:py-16 bg-muted/30">
       <div className="mx-auto max-w-3xl space-y-8">
         <h2 className="text-2xl font-bold text-center md:text-3xl">
           {title}

@@ -11,7 +11,7 @@ interface HeroProps {
 
 export default function Hero({ headline, subheadline, tagline, cta }: HeroProps) {
   return (
-    <section className="px-4 py-16 md:py-24">
+    <section className="px-4 py-12 md:py-16">
       <div className="mx-auto grid max-w-5xl items-center gap-10 md:grid-cols-2">
         <div className="space-y-6">
           <h1 className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">

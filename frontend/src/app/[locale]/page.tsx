@@ -94,7 +94,7 @@ export default async function LandingPage({
           items={dict.faq.items}
         />
 
-        <section id="contact" className="px-4 py-16 md:py-24">
+        <section id="contact" className="px-4 py-12 md:py-16">
           <div className="mx-auto max-w-5xl space-y-6 text-center">
             <h2 className="text-2xl font-bold md:text-3xl">
               {dict.contact.title}
